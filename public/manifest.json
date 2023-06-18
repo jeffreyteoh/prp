@@ -1,0 +1,9 @@
+{
+  "name": "Jeffrey Teoh",
+  "short_name": "JT",
+  "theme_color": "#FFF",
+  "background_color": "#FFF",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/"
+}
