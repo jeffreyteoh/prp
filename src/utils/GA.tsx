@@ -28,7 +28,7 @@ const GA = {
             window.GA_INITIALIZED = true;
         }
 
-        ReactGA.initialize(process.env.GA4_TRACKING_ID || "",
+        ReactGA.initialize(process.env.NEXT_PUBLIC_GA4_TRACKING_ID || "",
             {
                 gaOptions: {
                     debug_mode: true,
