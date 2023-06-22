@@ -8,7 +8,7 @@ const navData = {
   Home: {
     name: 'Home',
     to: '/',
-    children: '首页',
+    children: 'Home',
     className: 'active menu-item',
   },
   Contact: {
@@ -16,13 +16,7 @@ const navData = {
     to: '/',
     children: 'Contact',
     className: 'menu-item',
-  },
-  Github: {
-    name: 'Github',
-    to: '/',
-    children: 'Github',
-    className: ' menu-item',
-  },
+  }
 }
 
 const navChildren = Object.keys(navData).map((key, i) => {
@@ -54,9 +48,12 @@ function Header() {
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 1, type: 'tween' }}
         >
-          <div className="header-logo">
-            <Image src="/image/logo.svg" alt="Logo" width={150} height={40} />
-          </div>
+          <Link href="/">
+            <div className="header-logo">
+              <Image src="/image/logo.svg" alt="Logo" width={150} height={40} />
+            </div>
+          </Link>
+
         </motion.div>
         <div className="header-menu">
           {navChildren}

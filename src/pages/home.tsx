@@ -5,10 +5,7 @@ import { motion } from 'framer-motion';
 
 function Home() {
   return (
-    <RootLayout>
-      <Head>
-        <title>Jeffrey Teoh</title>
-      </Head>
+    <RootLayout title='Jeffrey Teoh'>
       <div className="banner">
         <div className="banner-text-wrapper">
           <motion.div
