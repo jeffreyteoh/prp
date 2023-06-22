@@ -3,22 +3,27 @@ import ReactGA from "react-ga4";
 type Transport = "beacon" | "xhr" | "image" | undefined;
 
 const GA = {
-     /**
-     * Initializes Google Analytics for the application.
-     *
-     * @return {void} This function does not return anything.
-     */
+    /**
+    * Initializes Google Analytics for the application.
+    *
+    * @return {void} This function does not return anything.
+    */
     initialize: () => {
         if (process.env.NODE_ENV !== "production") {
-            return; 
+            return;
         }
 
-        ReactGA.initialize([
+        ReactGA.initialize(process.env.GA4_TRACKING_ID || "",
             {
-                trackingId: process.env.GA4_TRACKING_ID || "",
+                gaOptions: {
+                    debug_mode: true,
+                },
+                gtagOptions: {
+                    debug_mode: true,
+                },
 
             }
-        ]);
+        );
     },
     /**
      * Sends a pageview to Google Analytics with the given path and title.
@@ -26,7 +31,7 @@ const GA = {
      * @param {string} path - The path of the page viewed.
      * @param {string} title - The title of the page viewed.
      */
-    pageView : (path: string, title: string) => {
+    pageView: (path: string, title: string) => {
         ReactGA.send({ hitType: "pageview", page: path, title: title });
     },
     /**
