@@ -19,7 +19,7 @@ const navData = {
   }
 }
 
-const navChildren = Object.keys(navData).map((key, i) => {
+const navChildren = Object.keys(navData).map((key) => {
   const item = navData[key];
   let tag: any = Link;
   const tagProps: { href?: string } = {};

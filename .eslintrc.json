@@ -2,8 +2,7 @@
   "extends": [
     "next",
     "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:storybook/recommended"
+    "eslint:recommended"
   ],
   "globals": {
     "React": "readonly"

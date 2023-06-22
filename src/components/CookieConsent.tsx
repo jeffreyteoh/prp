@@ -1,23 +1,17 @@
 import { useState, useEffect } from 'react';
-import CookieConsent, { getCookieConsentValue, Cookies, resetCookieConsentValue } from "react-cookie-consent";
+import CookieConsent, { getCookieConsentValue, Cookies } from "react-cookie-consent";
 import GA from '../utils/GA';
-import { Button } from 'antd';
 
-function CookieConsentBanner(props) {
+function CookieConsentBanner() {
     const [visible, setVisible] = useState("byCookie");
 
     useEffect(() => {
         const consent: string | undefined = getCookieConsentValue();
         const decline: string | undefined = Cookies.get("decline");
-        // const {reset} = props;
 
         if (consent === "true") {
             handleAcceptCookie();
         }
-
-        // if (reset) {
-        //     setVisible("show");
-        // }
 
         
         if (decline === "true") {

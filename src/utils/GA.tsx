@@ -1,5 +1,7 @@
 import ReactGA from "react-ga4";
 
+type Transport = "beacon" | "xhr" | "image" | undefined;
+
 const GA = {
      /**
      * Initializes Google Analytics for the application.
@@ -36,14 +38,14 @@ const GA = {
      * @param {number} value - the value of the event (optional, must be a number)
      * @param {string} transport - the transport method for the event (optional, default "xhr")
      */
-    trackEvent: (cat: string, act: string, label: string, value?, transport = "xhr") => {
+    trackEvent: (cat: string, act: string, label: string, value = 99, transport: Transport = "beacon") => {
         ReactGA.event({
-            category: "your category",
-            action: "your action",
-            label: "your label", // optional
-            value: 99, // optional, must be a number
+            category: cat,
+            action: act,
+            label: label, // optional
+            value: value, // optional, must be a number
             nonInteraction: true, // optional, true/false
-            transport: "xhr", // optional, beacon/xhr/image
+            transport: transport, // optional, beacon/xhr/image
         });
     }
 }
