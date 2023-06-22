@@ -1,8 +1,12 @@
 import ReactGA from "react-ga4";
 
 type Transport = "beacon" | "xhr" | "image" | undefined;
-declare var GA_INITIALIZED: boolean;
 
+declare global {
+    interface Window {
+        GA_INITIALIZED: boolean;
+    }
+  }
 
 
 const GA = {
@@ -12,15 +16,16 @@ const GA = {
     * @return {void} This function does not return anything.
     */
     initialize: () => {
+        
         if (process.env.NODE_ENV !== "production") {
             return;
         }
 
-        if (GA_INITIALIZED) { 
+        if (window.GA_INITIALIZED) { 
             return;
         }
         else {
-            GA_INITIALIZED = true;
+            window.GA_INITIALIZED = true;
         }
 
         ReactGA.initialize(process.env.GA4_TRACKING_ID || "",
@@ -43,7 +48,7 @@ const GA = {
      * @param {string} title - The title of the page viewed.
      */
     pageView: (path: string, title: string) => {
-        if (GA_INITIALIZED) {
+        if (window.GA_INITIALIZED) {
             ReactGA.send({ hitType: "pageview", page: path, title: title });
         }
     },
@@ -57,7 +62,7 @@ const GA = {
      * @param {string} transport - the transport method for the event (optional, default "xhr")
      */
     trackEvent: (cat: string, act: string, label: string, value = 99, transport: Transport = "beacon") => {
-        if (GA_INITIALIZED) {
+        if (window.GA_INITIALIZED) {
             ReactGA.event({
                 category: cat,
                 action: act,
