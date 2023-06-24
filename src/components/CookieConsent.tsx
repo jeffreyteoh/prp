@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import CookieConsent, { getCookieConsentValue, Cookies } from "react-cookie-consent";
+import CookieConsent, { getCookieConsentValue, Cookies, resetCookieConsentValue } from "react-cookie-consent";
 import GA from '../utils/GA';
 
 function CookieConsentBanner() {
@@ -13,13 +13,10 @@ function CookieConsentBanner() {
             handleAcceptCookie();
         }
 
-        
         if (decline === "true") {
             handleDeclineCookie();
             setVisible("hidden");
         }
-
-
     }, []);
 
     const handleAcceptCookie = () => {
@@ -36,19 +33,6 @@ function CookieConsentBanner() {
         setVisible("hidden");
     };
 
-    // const handleResetCookie = () => {
-    //     resetCookieConsentValue();
-
-    //     setVisible("show");
-
-    // }
-
-
-    // if (decline === "true") {
-    //     handleDeclineCookie();
-    //     setVisible("hidden");
-    // }
-
     return (
         <CookieConsent
             enableDeclineButton
@@ -64,6 +48,14 @@ function CookieConsentBanner() {
             </p>
         </CookieConsent>
     )
+}
+
+export function ResetCookie() {
+    Cookies.remove("_ga");
+    Cookies.remove("_gat");
+    Cookies.remove("_gid");
+    Cookies.remove("decline");
+    resetCookieConsentValue();
 }
 
 export default CookieConsentBanner;

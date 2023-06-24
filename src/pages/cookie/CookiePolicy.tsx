@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography } from 'antd';
+import Link from 'next/link';
 
 const { Title, Paragraph } = Typography;
 
@@ -8,7 +9,7 @@ const CookiePolicy = () => {
     <div className="content">
       <Title level={1}>Cookie Policy</Title>
       <Paragraph>
-        This Cookie Policy explains how [Your Website/Company Name] (&quotwe,&quot &quotus,&quot
+        This Cookie Policy explains how Jeffrey Teoh Website (&quotwe,&quot &quotus,&quot
         or &quotour&quot) uses cookies and similar technologies to recognize you when
         you visit our website at [Your website URL] (&quotWebsite&quot). It explains
         what these technologies are and why we use them, as well as your rights
@@ -66,7 +67,7 @@ const CookiePolicy = () => {
       <Title level={2}>Contact us:</Title>
       <Paragraph>
         If you have any questions or concerns about our use of cookies, please
-        contact us at [your contact information].
+        contact us at <Link href="/contact">here</Link>.
       </Paragraph>
     </div>
   );

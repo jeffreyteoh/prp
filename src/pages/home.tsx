@@ -28,8 +28,6 @@ function Home() {
             <div className="banner-namev prevent-select">Good to see you here!</div>
           </motion.div>
         </div>
-
-        {/* <Logo /> */}
       </div>
     </RootLayout>
   );

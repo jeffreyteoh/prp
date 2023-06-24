@@ -13,7 +13,7 @@ const navData = {
   },
   Contact: {
     name: 'Contact',
-    to: '/',
+    to: '/contact',
     children: 'Contact',
     className: 'menu-item',
   }

@@ -2,7 +2,7 @@ import RootLayout from '../../components/Layout';
 import PrivacyPolicy from './PrivacyPolicy';
 import React from 'react';
 
-const title = "Jeffrey Teoh - Privacy Policy"
+const title = "Privacy Policy"
 const breadcrumb = ['Home', "Privacy Policy"];
 
 
