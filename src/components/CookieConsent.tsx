@@ -5,6 +5,8 @@ import GA from '../utils/GA';
 function CookieConsentBanner() {
     const [visible, setVisible] = useState("byCookie");
 
+    GA.initialize();
+
     useEffect(() => {
         const consent: string | undefined = getCookieConsentValue();
         const decline: string | undefined = Cookies.get("decline");
@@ -21,7 +23,7 @@ function CookieConsentBanner() {
 
     const handleAcceptCookie = () => {
         setVisible("hidden");
-        GA.initialize();
+        GA.updateConsent('granted');
     }
 
     const handleDeclineCookie = () => {
@@ -31,6 +33,7 @@ function CookieConsentBanner() {
         Cookies.remove("_gid");
         Cookies.set("decline", "true", { expires: 7 })
         setVisible("hidden");
+        GA.updateConsent();
     };
 
     return (
