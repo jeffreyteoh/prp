@@ -4,13 +4,6 @@ type Transport = "beacon" | "xhr" | "image" | undefined;
 
 type Consent = "granted" | "denied";
 
-declare global {
-    interface Window {
-        GA_INITIALIZED: boolean;
-    }
-}
-
-
 const GA = {
     /**
     * Initializes Google Analytics for the application.
@@ -18,16 +11,8 @@ const GA = {
     * @return {void} This function does not return anything.
     */
     initialize: (consent: Consent = "denied") => {
-
         if (process.env.NODE_ENV !== "production") {
             return;
-        }
-
-        if (window.GA_INITIALIZED) {
-            return;
-        }
-        else {
-            window.GA_INITIALIZED = true;
         }
 
         ReactGA.initialize(process.env.NEXT_PUBLIC_GA4_TRACKING_ID || "");
@@ -50,9 +35,7 @@ const GA = {
      * @param {string} title - The title of the page viewed.
      */
     pageView: (path: string, title: string) => {
-        if (window.GA_INITIALIZED) {
-            ReactGA.send({ hitType: "pageview", page: path, title: title });
-        }
+        ReactGA.send({ hitType: "pageview", page: path, title: title });
     },
     /**
      * Tracks an event using ReactGA.
@@ -64,19 +47,14 @@ const GA = {
      * @param {string} transport - the transport method for the event (optional, default "xhr")
      */
     trackEvent: (cat: string, act: string, label: string, value = 99, transport: Transport = "beacon") => {
-        if (window.GA_INITIALIZED) {
-            ReactGA.event({
-                category: cat,
-                action: act,
-                label: label, // optional
-                value: value, // optional, must be a number
-                nonInteraction: true, // optional, true/false
-                transport: transport, // optional, beacon/xhr/image
-            });
-        }
-        else {
-            console.log("GA not initialized");
-        }
+        ReactGA.event({
+            category: cat,
+            action: act,
+            label: label, // optional
+            value: value, // optional, must be a number
+            nonInteraction: true, // optional, true/false
+            transport: transport, // optional, beacon/xhr/image
+        });
     }
 }
 
