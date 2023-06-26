@@ -80,8 +80,6 @@ function Contact() {
     setLoading(false);
   };
 
-  console.log(process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY);
-
   return (
     <RootLayout title={title} breadcrumb={breadcrumb}>
       <div className="content">

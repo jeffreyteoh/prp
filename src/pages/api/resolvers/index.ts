@@ -2,8 +2,6 @@ import sendEmail from "../../../lib/email/sendEmail";
 import crypto from 'node:crypto';
 
 export const resolvers = {
-  Query: {
-  },
   Mutation: {
     sendEmail: async (_, args, context) => {
       const {email, subject} = args;
