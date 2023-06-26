@@ -45,7 +45,7 @@ type Data = {
   subject?: string;
   message: string;
   name?: string;
-  datetime?: string;
+  token?: string;
 };
 
 function Contact() {
@@ -55,7 +55,7 @@ function Contact() {
   const turnstile = useTurnstile();
   const [token, setToken] = useState<string>('');
 
-  const onFinish = async (data) => {
+  const onFinish = async (data: Data) => {
     setComponentDisabled(true);
     setLoading(true);
 
