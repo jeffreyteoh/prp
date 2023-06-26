@@ -3,7 +3,8 @@ import { Layout, Row, theme, Divider, Space } from 'antd';
 import { LinkedinOutlined, GithubOutlined } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import GA from '../utils/GA';
+import va from '@vercel/analytics';
+
 
 const { useToken } = theme;
 
@@ -12,7 +13,9 @@ function Footer() {
   const style = { margin: '5px', fontSize: '24px', color: token.colorPrimary };
 
   const trackClicks = (event) => {
-    GA.trackEvent('Link', 'Clicks', event.target.dataset.name);
+    va.track('Clicks',   {
+      name: event.target.dataset.name
+    });
   };
 
   return (

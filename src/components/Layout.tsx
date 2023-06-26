@@ -3,7 +3,6 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Head from 'next/head';
-import CookieConsentBanner from './CookieConsent';
 
 const { Content } = Layout;
 
@@ -52,7 +51,6 @@ export default function RootLayout({
           {children}
         </Content>
         <Footer />
-        <CookieConsentBanner />
       </Layout>
     </ConfigProvider>
 
