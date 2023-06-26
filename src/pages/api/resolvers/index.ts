@@ -5,19 +5,14 @@ import crypto from 'node:crypto';
 export const resolvers = {
   Query: {
     getUsers: async () => {
-      try {
         const users = await axios.get("https://api.github.com/users");
         return users.data.map(({ id, login, avatar_url }) => ({
           id,
           login,
           avatar_url
         }));
-      } catch (error) {
-        throw error;
-      }
     },
     getUser: async (_, args) => {
-      try {
         const user = await axios.get(
           `https://api.github.com/users/${args.name}`
         );
@@ -26,9 +21,6 @@ export const resolvers = {
           login: user.data.login,
           avatar_url: user.data.avatar_url
         };
-      } catch (error) {
-        throw error;
-      }
     },
   },
   Mutation: {
@@ -59,7 +51,7 @@ export const resolvers = {
         method: 'POST',
       });
 
-      const sub_data = await result.json();
+      const sub_data = await sub_result.json();
 
       if (!sub_data) {
         return {success: false};
