@@ -2,11 +2,13 @@ import ReactGA from "react-ga4";
 
 type Transport = "beacon" | "xhr" | "image" | undefined;
 
+type Consent = "granted" | "denied";
+
 declare global {
     interface Window {
         GA_INITIALIZED: boolean;
     }
-  }
+}
 
 
 const GA = {
@@ -15,31 +17,31 @@ const GA = {
     *
     * @return {void} This function does not return anything.
     */
-    initialize: () => {
-        
+    initialize: (consent: Consent = "denied") => {
+
         if (process.env.NODE_ENV !== "production") {
             return;
         }
 
-        if (window.GA_INITIALIZED) { 
+        if (window.GA_INITIALIZED) {
             return;
         }
         else {
             window.GA_INITIALIZED = true;
         }
 
-        ReactGA.initialize(process.env.NEXT_PUBLIC_GA4_TRACKING_ID || "",
-            {
-                gaOptions: {
-                    debug_mode: true,
-                },
-                gtagOptions: {
-                    debug_mode: true,
-                },
+        ReactGA.initialize(process.env.NEXT_PUBLIC_GA4_TRACKING_ID || "");
 
-            }
-        );
-
+        ReactGA.gtag('consent', 'default',  {
+            'ad_storage': consent,
+            'analytics_storage': consent
+        });
+    },
+    updateConsent: (consent: Consent = "denied") => {
+        ReactGA.gtag('consent', "update",  {
+            'ad_storage': consent,
+            'analytics_storage': consent
+        }); 
     },
     /**
      * Sends a pageview to Google Analytics with the given path and title.
