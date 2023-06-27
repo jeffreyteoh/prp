@@ -1,7 +1,8 @@
 import { Layout, ConfigProvider, Breadcrumb } from 'antd';
-import React from 'react';
+import React, { Suspense } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import Loading from './Loading';
 import Head from 'next/head';
 
 const { Content } = Layout;
@@ -15,22 +16,23 @@ const { Content } = Layout;
 export default function RootLayout({
   children,
   title = "Jeffrey Teoh",
-  breadcrumb = []
+  breadcrumb = [],
+  menu,
 }: {
   children: React.ReactNode;
   title?: string;
-  breadcrumb?: string[]
+  breadcrumb?: string[],
+  menu?: string
 }) {
   let bc: any = "";
 
   if (breadcrumb.length > 0) {
     const list = breadcrumb.map((item) => {
-      return (<Breadcrumb.Item key={item}>{item}</Breadcrumb.Item>);
+      return {title:item}
     });
 
-    bc = (<Breadcrumb style={{ margin: '16px 16px' }}>
-      {list}
-    </Breadcrumb>);
+    bc = (<Breadcrumb style={{ margin: '16px 16px' }} items={list} />
+);
   }
 
   return (
@@ -45,11 +47,13 @@ export default function RootLayout({
         <title>{title}</title>
       </Head>
       <Layout>
-        <Header />
-        <Content>
-          {bc}
-          {children}
-        </Content>
+        <Header menu={menu}/>
+        <Suspense fallback={<Loading />}>
+          <Content>
+            {bc}
+            {children}
+          </Content>
+        </Suspense>
         <Footer />
       </Layout>
     </ConfigProvider>

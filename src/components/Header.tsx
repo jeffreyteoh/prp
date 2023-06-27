@@ -3,43 +3,32 @@ import { Layout, Row } from 'antd';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Menu from './Menu';
 
-const navData = {
-  Home: {
-    name: 'Home',
-    to: '/',
-    children: 'Home',
-    className: 'active menu-item',
-  },
-  Contact: {
-    name: 'Contact',
-    to: '/contact',
-    children: 'Contact',
-    className: 'menu-item',
-  }
-}
+function Header({menu} : {
+  menu ?: string
+}) {
 
-const navChildren = Object.keys(navData).map((key) => {
-  const item = navData[key];
-  let tag: any = Link;
-  const tagProps: { href?: string } = {};
-
-  if (item.to && item.to.match(/\//g)) {
-    tagProps.href = item.to;
-    tag = 'a';
-    delete item.to;
+  let navData = {
+    Home: {
+      name: 'Home',
+      to: '/',
+      children: 'Home',
+      className: 'menu-item',
+    },
+    Contact: {
+      name: 'Contact',
+      to: '/contact',
+      children: 'Contact',
+      className: 'menu-item',
+    }
   }
 
-  return React.createElement(
-    tag,
-    { ...item, ...tagProps, key: key },
-    navData[key].children
-  );
-});
+  if (menu && navData[menu]) {
+    navData[menu].className = 'active menu-item';
+  }
+  
 
-
-
-function Header() {
   return (
     <Layout style={{ background: '#fff', padding: 0 }} className="header">
       <Row justify={'space-between'}>
@@ -56,7 +45,7 @@ function Header() {
 
         </motion.div>
         <div className="header-menu">
-          {navChildren}
+          {Menu(navData)}
         </div>
       </Row>
     </Layout>

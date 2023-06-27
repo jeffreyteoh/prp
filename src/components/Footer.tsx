@@ -54,8 +54,8 @@ function Footer() {
         <Row justify={'center'}>
           <Space>
             <Link href="/privacy">Privacy</Link>
-            <Divider type="vertical" />
-            <Link href="/cookie">Cookie</Link>
+            {/* <Divider type="vertical" /> */}
+            {/* <Link href="/cookie">Cookie</Link> */}
           </Space>
         </Row>
         <Row justify={'center'} style={{ margin: '5px' }}>

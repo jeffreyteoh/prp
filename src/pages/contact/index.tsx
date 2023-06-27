@@ -1,9 +1,21 @@
 import RootLayout from '../../components/Layout';
-import { Button, Input, Space, Typography, Form } from 'antd';
+import { Button, Input, Space, Typography, Form, notification, Skeleton } from 'antd';
 import { gql } from '@apollo/client';
 import client from '../../lib/apollo-client';
 import { useState } from 'react';
 import Turnstile, { useTurnstile } from 'react-turnstile';
+
+const NOTIFICATION_DETAILS = {
+  success: {
+    message: 'Details Submitted!',
+    description:
+      "We've got your information. Our team will get in touch you shortly!",
+  },
+  error: {
+    message: 'Something went wrong!',
+    description: 'Please try again later!',
+  },
+};
 
 const { Title } = Typography;
 
@@ -52,6 +64,7 @@ function Contact() {
   const [form] = Form.useForm();
   const [componentDisabled, setComponentDisabled] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [firstLoading, setFirstLoading] = useState<boolean>(true);
   const turnstile = useTurnstile();
   const [token, setToken] = useState<string>('');
 
@@ -72,20 +85,30 @@ function Contact() {
         mutation: SEND_EMAIL,
         variables: data,
       });
+      notification.success(NOTIFICATION_DETAILS.success);
     } catch (error) {
       console.log(error);
+      notification.error(NOTIFICATION_DETAILS.error);
     }
 
     setComponentDisabled(false);
     setLoading(false);
   };
 
+  const onReset = () => {
+    form.resetFields();
+  };
+
+  setTimeout(() => setFirstLoading(false), 2000);
+
   return (
-    <RootLayout title={title} breadcrumb={breadcrumb}>
+    <RootLayout title={title} breadcrumb={breadcrumb} menu={'Contact'}>
       <div className="content">
         <Title level={1}>Contact</Title>
 
-        <div className="form ">
+        <Skeleton active loading={firstLoading}/>
+
+        <div className="form" style={firstLoading ? {display: 'none'}: {}}>
           <Form
             {...formItemLayout}
             initialValues={{ remember: true }}
@@ -132,27 +155,23 @@ function Contact() {
               <TextArea
                 rows={4}
                 placeholder="Write anything you want."
-                maxLength={6}
+                maxLength={250}
               />
             </Form.Item>
 
             <Turnstile
               sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITEKEY || ''}
               onVerify={setToken}
-              onExpire={() => { turnstile.reset(); }}
+              onExpire={() => {
+                turnstile.reset();
+              }}
             />
 
             <Space style={{ display: 'flex', justifyContent: 'right' }}>
               <Button loading={loading} type="primary" htmlType="submit">
                 Submit
               </Button>
-              <Button
-                onClick={() => {
-                  form.resetFields();
-                }}
-              >
-                Clear
-              </Button>
+              <Button onClick={onReset}>Clear</Button>
             </Space>
           </Form>
         </div>
